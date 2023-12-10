@@ -1,0 +1,35 @@
+# def findOne(ToF, WrF, temp):
+#     if temp[2] <= len(ToF):
+#         for i in range(temp[2], len(ToF)):
+#             for j in range(temp[0], len(WrF)):
+#                 for m in range(temp[1], len(WrF[j])):
+#                     if ToF[i] == WrF[j][m]:
+#                         temp[0] = j 
+#                         temp[1] = m + 1 
+#                         temp[2] = i + 1
+#                         print(temp[1])
+#                         return findOne(ToF, WrF, temp)
+#     else:
+#         return WrF[temp[0]]
+
+a = [[1, 3, 4, 1]]
+b = [3, 4]
+t = [0, 0, 0]
+# print(findOne(b, a, t))
+def find1(tf, wf, temp):
+    if temp[2] <= len(wf):
+        for i in range(temp[2], len(tf)):
+            for j in range(temp[0], len(wf)):
+                for m in range(temp[1], len(wf[j])):
+                    if tf[i] == wf[j][m]:
+                        return find2(tf, wf, i+1, j, m+1)
+                    
+def find2(tf, wf, ind, jin, mind):
+    print(ind, len(tf))
+    if ind < len(tf):
+        if tf[ind] == wf[jin][mind]:
+            return find2(tf, wf, ind + 1, jin, mind + 1)
+    else:
+        return (wf[jin], tf)
+print(find1(b, a, t))
+
