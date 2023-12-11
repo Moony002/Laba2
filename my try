@@ -1,0 +1,6 @@
+l = [1, 2, 3, 4, 3, 4, 3, 3]
+a = 3
+l.sort()
+low = 0
+up = len(l)-1
+print(searchingShit(l, a, up, low))
