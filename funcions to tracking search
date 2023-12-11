@@ -1,0 +1,29 @@
+def searchingShit(listik, znach, maxim, minim):
+
+    if znach == listik[maxim]:
+        return listik[maxim], maxim
+        
+    else:
+        return wherego(listik, znach, maxim, minim)
+        
+        
+def wherego(listik, znach, maxim, minim):
+
+    if listik[maxim] > znach:
+        return vlevo(listik, znach, maxim, minim)
+        
+    elif listik[maxim] < znach:
+        return vpravo(listik, znach, maxim, minim)
+        
+        
+def vlevo(listik, znach, maxim, minim):
+
+    shit = maxim - (len(listik)-1) + 1
+    maxim = maxim - 2**shit
+    return searchingShit(listik, znach, maxim, minim)
+    
+def vpravo(listik, znach, maxim, minim):
+
+    shit = maxim - (len(listik)-1) + 1
+    maxim = maxim + 2**shit
+    return searchingShit(listik, znach, maxim, minim)
