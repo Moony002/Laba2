@@ -1,0 +1,38 @@
+a = open("Huh.txt", encoding="utf8")
+data = str()
+for line in a:
+    data += line.strip()
+a.close()
+# print(data)
+
+def transformer(stroka):
+    stroka = stroka.lower()
+    stro = ''
+    alphabet = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+    al = alphabet
+    alord = []
+    ala = dict()
+    for i in range(len(alphabet)):
+        ala[alphabet[i]] = i
+    for i in range(len(alphabet)):
+    #     # print(i, alphabet[i])
+        # print(ord(alphabet[i]), i, alphabet[i])
+        alord.append(ord(alphabet[i]))
+    # print(ord(' '))
+    alord.append(ord(' '))
+    for i in range(len(stroka)):
+        if ord(stroka[i]) in alord:
+            stro += stroka[i]
+    listik = stro.split()
+    llistik = []
+    for i in range(len(listik)):
+        temp = []
+        for j in range(len(listik[i])):
+            if listik[i][j] in alphabet:
+                temp.append(ala[listik[i][j]])
+        llistik.append(temp)
+    return llistik#, listik
+d = transformer(data)
+# print(type(d))
+# print(d)
+#На данном этапе мы превратили статью Вайланда в циферки
