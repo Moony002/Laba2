@@ -1,0 +1,47 @@
+def SH(arr, targ, na):
+    low = 0
+    up = len(arr) - 1
+    n = 0
+    i = 0
+    cycle = 0
+    while low <= up:
+        mid = low + (2**i)
+        if mid > up:
+            mid = up
+        cycle += 1
+        if arr[mid] == targ:
+            na += 1
+            arr.pop(mid)
+            return True, cycle, arr, na
+        elif arr[mid] > targ:
+            up = mid - 1
+        else:
+            low = mid + 1
+            i+= 1
+    return False, cycle, arr, na
+
+
+def again(arr, targ, naid, valid):
+    # print(arr, naid)
+    if valid == True:
+        ar = SH(arr, targ, naid)
+        # naid[1] += ar[1]
+        # print(SH(arr, targ))
+        return again(ar[2], targ, ar[3], ar[0])
+    else: 
+        return naid
+    
+#Пример
+
+b =[[2, 14, 18], [13, 0, 24], [10, 11, 0, 17, 17], [15, 16, 14, 17, 18, 14], [10, 11, 0, 17, 17], [10, 11, 0, 17, 17]]
+for i in range(len(b)):
+    b[i].sort()
+# print(b)
+b.sort()
+# print(b)
+a = [10, 11, 0, 17, 17]
+a.sort()
+# print(a)
+n = 0
+v = True
+print(again(b, a, n, v))
