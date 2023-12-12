@@ -21,15 +21,17 @@ def SH(arr, targ, na):
     return False, cycle, arr, na
 
 
-def again(arr, targ, naid, valid):
+def again(arr, targ, naid, valid, cyc):
     # print(arr, naid)
+    cyc += cyc
     if valid == True:
+        print(arr, naid)
         ar = SH(arr, targ, naid)
         # naid[1] += ar[1]
         # print(SH(arr, targ))
-        return again(ar[2], targ, ar[3], ar[0])
+        return again(ar[2], targ, ar[3], ar[0], ar[1])
     else: 
-        return naid
+        return naid, cyc
     
 #Пример
 
@@ -44,4 +46,4 @@ a.sort()
 # print(a)
 n = 0
 v = True
-print(again(b, a, n, v))
+print(again(b, a, n, v, 0))
