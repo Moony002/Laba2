@@ -1,0 +1,6 @@
+a = open("Huh.txt", encoding="utf8")
+data = str()
+for line in a:
+    data += line.strip()
+a.close()
+print(data)
