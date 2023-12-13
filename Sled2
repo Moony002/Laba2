@@ -1,0 +1,107 @@
+from time import time
+start0 = time()
+glinn = open("res2.csv", "w+")
+glinn.write("Element" + ";" + "Time" + ";" + "Cycles" + "\n")
+a = open("Mom.csv", encoding="utf8")
+data = []
+for line in a:
+    line = line.rstrip("\n").split(";")
+    line.pop(-1)
+    for i in range(len(line)):
+        line[i] = int(line[i])
+    data.append(line)
+# print(data)
+
+def SH(arr, targ, na):
+    low = 0
+    up = len(arr) - 1
+    n = 0
+    i = 0
+    cycle = 0
+    while low <= up:
+        mid = low + (2**i)
+        if mid > up:
+            mid = up
+        cycle += 1
+        if arr[mid] == targ:
+            na += 1
+            tr = arr[mid]
+            arr.pop(mid)
+            return True, cycle, arr, na, tr
+        elif arr[mid] > targ:
+            up = mid - 1
+        else:
+            low = mid + 1
+            i+= 1
+    return False, cycle, arr, na
+
+
+def again(arr, targ, naid, valid, cyc):
+    start1 = time()
+    cyc += cyc
+    if valid == True:
+        ar = SH(arr, targ, naid)
+        return again(ar[2], targ, ar[3], ar[0], ar[1])
+    else:
+        over1 = time()
+        glinn.write(str(targ) + ";" + str(over1 - start1) + ";" + str(cyc) +"\n")
+        return naid, cyc
+
+# a = []
+# for i in range(10000):
+#     b = []
+#     for j in range(10):
+#         b.append(j+i *j)
+
+#     a.append(b)
+a = data[::]
+
+#Сортируем
+
+for i in range(len(a)):
+    a[i].sort()
+a.sort()
+
+#Сортируем
+ab = a[::]
+
+ag = []
+ap = []
+for i in range(len(a)):
+    ab = a[::]
+    if a[i] not in ag:
+        ag.append(a[i])
+        data = again(ab, a[i], 0, True, 0)
+        ap.append(data)
+
+aa = ag[::]
+aa.sort()
+
+pp = aa[::]
+yy = []
+y = []
+# for i in range(len(aa)):
+#     pp = aa[::]
+#     arar = again(pp, aa[i], 0, True, 0)
+#     yy.append(arar[0] - 1)
+n = 0
+for i in range(len(aa)):
+    pp = aa[::]
+    n += 1
+    if aa[i] not in y:
+        y.append(aa[i])
+        yy.append(again(pp, aa[i], 0, True, 0)[0])
+    else:
+        print("Этот элемент повторяется", aa[i])
+#y - массив с уникальными значениями из массива а
+if (sum(yy) - n) == 0:
+    print("Все элементы уникальны")
+else:
+    print("Не все элементы уникальны")
+
+
+over0 = time()
+b = str(round((over0 - start0), 10)).replace(".", ",")
+glinn.write("Time in general: "+ ";" + b +"\n")
+glinn.close()
+
