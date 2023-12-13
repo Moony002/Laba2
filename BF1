@@ -1,0 +1,91 @@
+from time import time
+start0 = time()
+a = open("Huh.txt", encoding="utf8")
+data = str()
+for line in a:
+    data += line.strip()
+a.close()
+start9 = time()
+glinn = open("res3.csv", "w+")
+glina = open("res4.csv", "w+")
+glinn.write("Element" + ";" + "Time" + ";" + "Asks for massive" + "\n")
+def BB(aray, target):
+    n = 0
+    c = 0
+    # ar = []
+    for i in range(len(aray)):
+        start1 = time()
+        c += 1
+        if aray[i] == target:
+            n += 1
+            over1 = time()
+            glinn.write(str(aray[i]) + ';' + str(over1 - start1) + ";" + str(c) + "\n")
+            # ar.append(i)
+    return n, c
+
+
+
+def transformer(stroka):
+    stroka = stroka.lower()
+    stro = ''
+    alphabet = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+    al = alphabet
+    alord = []
+    ala = dict()
+    for i in range(len(alphabet)):
+        ala[alphabet[i]] = i
+    for i in range(len(alphabet)):
+        alord.append(ord(alphabet[i]))
+    alord.append(ord(' '))
+    for i in range(len(stroka)):
+        if ord(stroka[i]) in alord:
+            stro += stroka[i]
+    listik = stro.split()
+    llistik = []
+    for i in range(len(listik)):
+        temp = []
+        for j in range(len(listik[i])):
+            if listik[i][j] in alphabet:
+                temp.append(ala[listik[i][j]])
+        llistik.append(temp)
+    return llistik
+
+
+a = transformer(data)
+# a = [[3, 2, 4], [1, 2, 3, 4], [1, 2, 3, 4], [2, 4, 5]]
+at = []
+ag = []
+ap = at[::]
+ap.sort(reverse = True)
+glina.write("Element" + ";" + "Number of element" + ";" + "Asks for massive" + "\n")
+for i in range(len(a)):
+    if a[i] not in at:
+        at.append(a[i])
+        t = [a[i], BB(a, a[i])]
+        ag.append(t)
+        # glina.write(str(a[i]) + ";" + str(BB(a, a[i])[0]) + ";" + str(BB(a, a[i])[1]) + "\n")
+# print(at)
+# print(ag)
+ap = ag[::]
+#unsorted_list.sort(key=lambda x: x[3])
+ap.sort(key=lambda x: x[1], reverse = True)
+# print(ap)
+print()
+for i in range(len(ap)):
+    for j in range(len(ag)):
+        if ap[i] == ag[j]:
+
+            # data =str(ag[j]) + " " + str(ap[j][0])+ " " +  str(ap[j][1])
+            # print("Элемент", ag[j])
+            # print("Найдено:", ap[j][0], "Циклов:", ap[j][1])
+            glina.write(str(at[j])+ ";")
+            glina.write(str(ag[j][1][0])+ ";")
+            glina.write(str(ap[j][1][1])+ ";" +"\n")
+# print(at)
+# print(ag)
+over0 = time()
+over9 = time()
+glinn.write("Time in general" + ";" + str(over0 - start0) + "\n")
+glinn.write("Time in general w/o importing" + ";" + str(over9 - start9) + "\n")
+glinn.close()
+glina.close()
