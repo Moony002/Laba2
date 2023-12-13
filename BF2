@@ -1,0 +1,62 @@
+from time import time
+start0 = time()
+glinn = open("res5.csv", "w+")
+glinn.write("Element" + ";" + "Time" + ";" + "Cycles" + "\n")
+def BB(aray, target):
+    n = 0
+    c = 0
+    # ar = []
+    for i in range(len(aray)):
+        start1 = time()
+        c += 1
+        if aray[i] == target:
+            n += 1
+            over1 = time()
+            glinn.write(str(aray[i]) + ';' + str(over1 - start1) + ";" + str(c) + "\n")
+            # ar.append(i)
+    return n, c
+# a = [[1, 3, 4, 1], [3, 4, 1], [3, 4], [3, 4]]
+# a = [[1, 3, 4, 1], [3, 4, 1], [3, 4]]
+# yy = []
+# for i in range(len(a)):
+#     if a[i] not in yy:
+#         yy.append(BB(a, a[i])[0] - 1)
+#     else:
+#         print("Этот элемент повторяется", a[i])
+# if sum(yy) == 0:
+#     print("Все значения уникальны")
+# b = [3, 4]
+# print(BB(a, b))
+
+
+k = open("Mom.csv", encoding="utf8")
+data = []
+for line in k:
+    line = line.rstrip("\n").split(";")
+    
+    line.pop(-1)
+    for i in range(len(line)):
+        line[i] = int(line[i])
+    data.append(line)
+
+
+a = data[::]
+yy = []
+for i in range(len(a)):
+    if a[i] not in yy:
+        yy.append((BB(a, a[i])[0]) - 1)
+    else:
+        print("Этот элемент повторяется", a[i])
+        
+if sum(yy) == 0:
+    print("Все значения уникальны")
+else:
+    print("Не все элементы уникальны")
+
+
+
+over0 = time()
+b = str(round((over0 - start0), 10)).replace(".", ",")
+print(b)
+glinn.write("Time in general" + ";" + str(b) + "\n")
+glinn.close()
